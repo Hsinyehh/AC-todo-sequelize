@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../../models')
+const { route } = require('./home')
 const Todo = db.Todo
 
 //新增
@@ -50,7 +51,16 @@ router.put('/:id', (req, res) => {
 
 
 //刪除
+router.delete('/:id', (req, res) => {
+  const id = req.params.id
+  return Todo.destroy({
+    where: { id }
+  })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 
+
+})
 
 
 
