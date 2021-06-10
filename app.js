@@ -7,13 +7,16 @@ const usePassport = require('./config/passport')
 const passport = require('passport')
 const flash = require('connect-flash')
 const routes = require('./routes')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
